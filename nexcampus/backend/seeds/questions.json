@@ -1,0 +1,450 @@
+[
+ {
+  "category": "Quantitative Aptitude",
+  "topic": "Percentages",
+  "difficulty": "Easy",
+  "text": "What is 20% of 250?",
+  "options": [
+   "25",
+   "50",
+   "40",
+   "60"
+  ],
+  "correct": 1,
+  "explanation": "250 × 0.20 = 50."
+ },
+ {
+  "category": "Quantitative Aptitude",
+  "topic": "Percentages",
+  "difficulty": "Medium",
+  "text": "A price rises 10% then falls 10%. Net change?",
+  "options": [
+   "0%",
+   "−1%",
+   "+1%",
+   "−10%"
+  ],
+  "correct": 1,
+  "explanation": "1.1 × 0.9 = 0.99, a 1% fall."
+ },
+ {
+  "category": "Quantitative Aptitude",
+  "topic": "Time & Work",
+  "difficulty": "Medium",
+  "text": "A does a job in 10 days, B in 15. Together?",
+  "options": [
+   "5",
+   "6",
+   "7",
+   "8"
+  ],
+  "correct": 1,
+  "explanation": "1/10 + 1/15 = 1/6 per day."
+ },
+ {
+  "category": "Quantitative Aptitude",
+  "topic": "Time & Work",
+  "difficulty": "Easy",
+  "text": "4 workers finish in 12 days. How long for 6 workers?",
+  "options": [
+   "6",
+   "8",
+   "9",
+   "18"
+  ],
+  "correct": 1,
+  "explanation": "Work = 48 worker-days; 48 / 6 = 8."
+ },
+ {
+  "category": "Logical Reasoning",
+  "topic": "Series",
+  "difficulty": "Easy",
+  "text": "2, 4, 8, 16, ?",
+  "options": [
+   "24",
+   "32",
+   "30",
+   "20"
+  ],
+  "correct": 1,
+  "explanation": "Each term doubles."
+ },
+ {
+  "category": "Logical Reasoning",
+  "topic": "Series",
+  "difficulty": "Medium",
+  "text": "1, 4, 9, 16, ?",
+  "options": [
+   "20",
+   "25",
+   "24",
+   "36"
+  ],
+  "correct": 1,
+  "explanation": "Perfect squares: 5² = 25."
+ },
+ {
+  "category": "Logical Reasoning",
+  "topic": "Syllogisms",
+  "difficulty": "Medium",
+  "text": "All cats are animals. Some animals are pets. Which must be true?",
+  "options": [
+   "All cats are pets",
+   "Some cats are pets",
+   "No conclusion about cats and pets follows",
+   "No cat is a pet"
+  ],
+  "correct": 2,
+  "explanation": "The middle term is only partially distributed, so no link is guaranteed."
+ },
+ {
+  "category": "Logical Reasoning",
+  "topic": "Syllogisms",
+  "difficulty": "Easy",
+  "text": "All A are B; all B are C. Then:",
+  "options": [
+   "All A are C",
+   "All C are A",
+   "No A is C",
+   "Some C are not B"
+  ],
+  "correct": 0,
+  "explanation": "Transitivity of 'all'."
+ },
+ {
+  "category": "Verbal Ability",
+  "topic": "Grammar",
+  "difficulty": "Easy",
+  "text": "Choose the correct sentence.",
+  "options": [
+   "She don't like tea",
+   "She doesn't like tea",
+   "She not like tea",
+   "She doesn't likes tea"
+  ],
+  "correct": 1,
+  "explanation": "Third person singular uses 'doesn't' plus base verb."
+ },
+ {
+  "category": "Verbal Ability",
+  "topic": "Grammar",
+  "difficulty": "Medium",
+  "text": "'Neither of the answers ___ correct.'",
+  "options": [
+   "are",
+   "is",
+   "were",
+   "be"
+  ],
+  "correct": 1,
+  "explanation": "'Neither' takes a singular verb."
+ },
+ {
+  "category": "Verbal Ability",
+  "topic": "Vocabulary",
+  "difficulty": "Easy",
+  "text": "Synonym of 'brief':",
+  "options": [
+   "Short",
+   "Heavy",
+   "Loud",
+   "Bright"
+  ],
+  "correct": 0,
+  "explanation": "Brief means short in duration."
+ },
+ {
+  "category": "Verbal Ability",
+  "topic": "Vocabulary",
+  "difficulty": "Hard",
+  "text": "Antonym of 'ephemeral':",
+  "options": [
+   "Fleeting",
+   "Lasting",
+   "Fragile",
+   "Rapid"
+  ],
+  "correct": 1,
+  "explanation": "Ephemeral means short-lived."
+ },
+ {
+  "category": "Programming Fundamentals",
+  "topic": "Loops",
+  "difficulty": "Easy",
+  "text": "How many times does for(i=0;i<5;i++) run?",
+  "options": [
+   "4",
+   "5",
+   "6",
+   "Infinite"
+  ],
+  "correct": 1,
+  "explanation": "i takes 0..4."
+ },
+ {
+  "category": "Programming Fundamentals",
+  "topic": "Loops",
+  "difficulty": "Medium",
+  "text": "Output of: s=0; for i in range(1,4): s+=i",
+  "options": [
+   "3",
+   "6",
+   "10",
+   "4"
+  ],
+  "correct": 1,
+  "explanation": "1+2+3 = 6."
+ },
+ {
+  "category": "Programming Fundamentals",
+  "topic": "Recursion",
+  "difficulty": "Medium",
+  "text": "factorial(n)=n*factorial(n-1). The base case is needed to:",
+  "options": [
+   "Speed up",
+   "Stop recursion",
+   "Save memory",
+   "Declare types"
+  ],
+  "correct": 1,
+  "explanation": "Without it the calls never terminate."
+ },
+ {
+  "category": "Programming Fundamentals",
+  "topic": "Recursion",
+  "difficulty": "Hard",
+  "text": "Fibonacci via naive recursion has time complexity:",
+  "options": [
+   "O(n)",
+   "O(n log n)",
+   "O(2^n)",
+   "O(1)"
+  ],
+  "correct": 2,
+  "explanation": "Each call spawns two overlapping subcalls."
+ },
+ {
+  "category": "Data Structures and Algorithms",
+  "topic": "Stacks & Queues",
+  "difficulty": "Easy",
+  "text": "A stack follows:",
+  "options": [
+   "FIFO",
+   "LIFO",
+   "Random",
+   "Priority order"
+  ],
+  "correct": 1,
+  "explanation": "Last in, first out."
+ },
+ {
+  "category": "Data Structures and Algorithms",
+  "topic": "Stacks & Queues",
+  "difficulty": "Medium",
+  "text": "Which structure suits breadth-first search?",
+  "options": [
+   "Stack",
+   "Queue",
+   "Heap",
+   "Tree"
+  ],
+  "correct": 1,
+  "explanation": "BFS visits nodes level by level using a FIFO queue."
+ },
+ {
+  "category": "Data Structures and Algorithms",
+  "topic": "Complexity",
+  "difficulty": "Medium",
+  "text": "Binary search time complexity:",
+  "options": [
+   "O(n)",
+   "O(log n)",
+   "O(n²)",
+   "O(1)"
+  ],
+  "correct": 1,
+  "explanation": "The range halves every step."
+ },
+ {
+  "category": "Data Structures and Algorithms",
+  "topic": "Complexity",
+  "difficulty": "Hard",
+  "text": "Worst case of quicksort:",
+  "options": [
+   "O(n log n)",
+   "O(n²)",
+   "O(n)",
+   "O(log n)"
+  ],
+  "correct": 1,
+  "explanation": "Consistently bad pivots give quadratic time."
+ },
+ {
+  "category": "Database Management Systems",
+  "topic": "Normalization",
+  "difficulty": "Medium",
+  "text": "1NF requires:",
+  "options": [
+   "No partial dependency",
+   "Atomic column values",
+   "No transitive dependency",
+   "Every table has a foreign key"
+  ],
+  "correct": 1,
+  "explanation": "1NF means each cell holds a single atomic value."
+ },
+ {
+  "category": "Database Management Systems",
+  "topic": "Normalization",
+  "difficulty": "Hard",
+  "text": "3NF removes:",
+  "options": [
+   "Partial dependencies",
+   "Transitive dependencies",
+   "Multi-valued attributes",
+   "Null values"
+  ],
+  "correct": 1,
+  "explanation": "Non-key attributes must not depend on other non-key attributes."
+ },
+ {
+  "category": "Database Management Systems",
+  "topic": "SQL",
+  "difficulty": "Easy",
+  "text": "Which clause filters grouped rows?",
+  "options": [
+   "WHERE",
+   "HAVING",
+   "ORDER BY",
+   "LIMIT"
+  ],
+  "correct": 1,
+  "explanation": "HAVING filters after GROUP BY."
+ },
+ {
+  "category": "Database Management Systems",
+  "topic": "SQL",
+  "difficulty": "Medium",
+  "text": "Which JOIN keeps all rows from the left table?",
+  "options": [
+   "INNER",
+   "LEFT",
+   "CROSS",
+   "SELF"
+  ],
+  "correct": 1,
+  "explanation": "LEFT JOIN preserves unmatched left rows."
+ },
+ {
+  "category": "Operating Systems",
+  "topic": "Scheduling",
+  "difficulty": "Medium",
+  "text": "Which algorithm can cause starvation of long jobs?",
+  "options": [
+   "Round Robin",
+   "Shortest Job First",
+   "FCFS",
+   "None"
+  ],
+  "correct": 1,
+  "explanation": "Short jobs keep arriving and jump ahead."
+ },
+ {
+  "category": "Operating Systems",
+  "topic": "Scheduling",
+  "difficulty": "Easy",
+  "text": "Round Robin uses a:",
+  "options": [
+   "Priority",
+   "Time quantum",
+   "Deadline",
+   "Stack"
+  ],
+  "correct": 1,
+  "explanation": "Each process runs for a fixed quantum."
+ },
+ {
+  "category": "Operating Systems",
+  "topic": "Memory",
+  "difficulty": "Medium",
+  "text": "Thrashing happens when:",
+  "options": [
+   "CPU is idle",
+   "Too much paging activity",
+   "Disk is full",
+   "Cache is empty"
+  ],
+  "correct": 1,
+  "explanation": "Processes spend more time paging than executing."
+ },
+ {
+  "category": "Operating Systems",
+  "topic": "Memory",
+  "difficulty": "Hard",
+  "text": "Belady's anomaly occurs in:",
+  "options": [
+   "LRU",
+   "FIFO page replacement",
+   "Optimal",
+   "Clock"
+  ],
+  "correct": 1,
+  "explanation": "FIFO can fault more with more frames."
+ },
+ {
+  "category": "Computer Networks",
+  "topic": "Protocols",
+  "difficulty": "Easy",
+  "text": "HTTP runs over which transport protocol by default?",
+  "options": [
+   "UDP",
+   "TCP",
+   "ICMP",
+   "ARP"
+  ],
+  "correct": 1,
+  "explanation": "HTTP/1.1 and 2 use TCP."
+ },
+ {
+  "category": "Computer Networks",
+  "topic": "Protocols",
+  "difficulty": "Medium",
+  "text": "TCP connection setup is:",
+  "options": [
+   "2-way",
+   "3-way handshake",
+   "4-way",
+   "None"
+  ],
+  "correct": 1,
+  "explanation": "SYN, SYN-ACK, ACK."
+ },
+ {
+  "category": "Computer Networks",
+  "topic": "Addressing",
+  "difficulty": "Medium",
+  "text": "How many host addresses are usable in a /24 IPv4 network?",
+  "options": [
+   "256",
+   "254",
+   "255",
+   "24"
+  ],
+  "correct": 1,
+  "explanation": "256 minus network and broadcast."
+ },
+ {
+  "category": "Computer Networks",
+  "topic": "Addressing",
+  "difficulty": "Hard",
+  "text": "Which protocol maps IP to MAC?",
+  "options": [
+   "DNS",
+   "ARP",
+   "DHCP",
+   "NAT"
+  ],
+  "correct": 1,
+  "explanation": "ARP resolves IP to link-layer addresses."
+ }
+]

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NexCampus</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#101010;--bg2:#181818;--gold:#D4AF37;--tx:#F5F5F5;--tx2:#B8B8B8;--bd:#333;--ok:#4ade80;--warn:#fbbf24;--err:#f87171;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*:before,*:after{box-sizing:inherit}
+html,body{margin:0;background:#101010}
+body{font:15px/1.5 'Instrument Sans',system-ui,sans-serif;color:var(--tx);background:var(--bg)}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600;margin:0}
+h1{font-size:26px}h2{font-size:20px;margin-bottom:10px}h3{font-size:16px}
+a,button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{background:var(--bg2);border-right:1px solid var(--bd);padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-family:Newsreader,serif;font-size:22px;color:var(--gold);padding:0 8px}
+.tag{color:var(--tx2);font-size:12px;padding:0 8px 14px}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;border-left:2px solid transparent;padding:8px 10px;color:var(--tx2);cursor:pointer;border-radius:0 6px 6px 0}
+nav button:hover{color:var(--tx)}nav button[aria-current=page]{color:var(--gold);border-left-color:var(--gold);background:#1f1c10}
+nav .grp{color:var(--tx2);font-size:12px;padding:12px 10px 4px}
+main{padding:24px 28px;max-width:1100px;width:100%}
+.sub{display:none}h1,h2,h3,.brand,.kpi b,.timer{font-family:'Instrument Sans',system-ui,sans-serif}h1{font-size:24px}textarea{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;color:var(--tx);resize:vertical}.app.out{grid-template-columns:1fr}.app.out aside{display:none}.login{min-height:80vh;display:grid;place-items:center}.login>div{width:100%;max-width:340px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:24px}.login select,.login input{width:100%;margin-bottom:10px}.who{margin-top:18px;padding:12px 8px;border-top:1px solid var(--bd);font-size:13px}.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,13px);grid-auto-columns:13px;gap:3px;overflow-x:auto;padding-bottom:4px}.cell{display:inline-block;width:13px;height:13px;border-radius:2px}.l0{background:#222}.l1{background:#3d3512}.l2{background:#6b5a17}.l3{background:#a8891f}.l4{background:#D4AF37}.leg{display:flex;gap:3px;align-items:center;margin-top:8px;font-size:12px;color:var(--tx2)}.tiles{display:flex;flex-wrap:wrap;gap:6px}.tile{width:84px;height:84px;border-radius:4px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:4px;font-size:11px;overflow:hidden}.tile b{font-size:17px}.tile.hi{background:#D4AF37;color:#101010}.tile.mid{background:#6b5a17}.tile.lo{background:#3b1c1c;border:1px solid var(--err)}
+.panel{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:16px;margin-bottom:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+.kpis{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--bd);border-radius:8px;margin-bottom:16px;background:var(--bg2)}
+.kpi{flex:1 1 140px;padding:14px 16px;border-right:1px solid var(--bd)}.kpi:last-child{border:0}
+.kpi b{display:block;font:600 24px Newsreader,serif;color:var(--gold)}.kpi span{color:var(--tx2);font-size:13px}
+label{display:block;color:var(--tx2);font-size:13px;margin-bottom:3px}
+select,input[type=number]{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;min-width:130px}
+.btn{background:var(--gold);color:#101010;border:0;border-radius:6px;padding:9px 16px;font-weight:600;cursor:pointer}
+.btn.alt{background:none;color:var(--tx);border:1px solid var(--bd)}.btn.alt:hover{border-color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--bd);font-size:14px}th{color:var(--tx2);font-weight:500}
+.wrap{overflow-x:auto}
+.bar{height:8px;background:#2a2a2a;border-radius:4px;min-width:90px}.bar i{display:block;height:100%;border-radius:4px;background:var(--gold)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)}.mut{color:var(--tx2)}
+.note{border-left:3px solid var(--warn);padding:8px 12px;background:#1d1a10;margin-bottom:16px;font-size:13px;color:var(--tx2)}
+.empty{text-align:center;padding:28px 12px;color:var(--tx2)}.empty h3{color:var(--tx);margin-bottom:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--bd);border-radius:6px;padding:10px 12px;margin:8px 0;cursor:pointer;background:var(--bg)}
+.opt:hover{border-color:#666}.opt.sel{border-color:var(--gold);background:#1f1c10}
+.opt.good{border-color:var(--ok)}.opt.bad{border-color:var(--err)}
+.tb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.timer{font:600 22px Newsreader,serif;color:var(--gold)}.timer.low{color:var(--err)}
+.test{display:grid;grid-template-columns:1fr 220px;gap:16px}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.pal button{aspect-ratio:1;background:var(--bg);border:1px solid var(--bd);border-radius:6px;cursor:pointer;position:relative}
+.pal .a{background:#2b2610;border-color:var(--gold)}.pal .m:after{content:'';position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--warn)}
+.pal .c{outline:2px solid var(--tx)}
+.chip{display:inline-block;border:1px solid var(--bd);border-radius:20px;padding:1px 9px;font-size:12px;color:var(--tx2);margin-right:6px}
+dialog{background:var(--bg2);color:var(--tx);border:1px solid var(--gold);border-radius:8px;max-width:460px;padding:20px}dialog::backdrop{background:#000a}
+.toast{position:fixed;bottom:16px;right:16px;background:var(--bg2);border:1px solid var(--gold);padding:10px 14px;border-radius:6px;z-index:9}
+.mnav{display:none}
+@media(max-width:820px){.app{grid-template-columns:1fr}aside{position:static;height:auto;border:0;border-bottom:1px solid var(--bd)}nav{display:flex;overflow-x:auto;gap:4px}nav button{white-space:nowrap;border-left:0;border-bottom:2px solid transparent;width:auto}nav button[aria-current=page]{border-bottom-color:var(--gold)}nav .grp{display:none}main{padding:16px}.test{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:no-preference){@keyframes up{from{opacity:0;transform:translateY(10px)}}@keyframes pop{from{opacity:0;transform:scale(.3)}}@keyframes grow{from{width:0}}main>*{animation:up .4s both}main>:nth-child(2){animation-delay:.06s}main>:nth-child(3){animation-delay:.12s}main>:nth-child(4){animation-delay:.18s}.cell,.tile{animation:pop .4s both;animation-delay:calc(var(--i,0)*4ms)}.bar i{animation:grow .9s ease-out}.opt,.btn,.pal button,nav button{transition:transform .12s,border-color .15s,background .15s}.btn:not(:disabled):hover{transform:translateY(-1px)}.opt:hover{transform:translateX(3px)}.timer.low{animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.4}}dialog[open]{animation:pop .2s}}
+</style></head><body>
+<div class="app"><aside><div class="brand">NexCampus</div><div class="tag">One Campus. Every Connection. Smarter Decisions.</div><nav id="nav" aria-label="Main"></nav></aside><main id="main" tabindex="-1"></main></div>
+<dialog id="dlg"></dialog>
+<script>
+const CATS={"Quantitative Aptitude":["Percentages","Time & Work"],"Logical Reasoning":["Series","Syllogisms"],"Verbal Ability":["Grammar","Vocabulary"],"Programming Fundamentals":["Loops","Recursion"],"Data Structures and Algorithms":["Stacks & Queues","Complexity"],"Database Management Systems":["Normalization","SQL"],"Operating Systems":["Scheduling","Memory"],"Computer Networks":["Protocols","Addressing"]};
+const Q=[];let qid=0;
+function q(c,t,d,x,o,a,e){Q.push({id:++qid,c,t,d,x,o,a,e})}
+q("Quantitative Aptitude","Percentages","Easy","What is 20% of 250?",["25","50","40","60"],1,"250 × 0.20 = 50.");
+q("Quantitative Aptitude","Percentages","Medium","A price rises 10% then falls 10%. Net change?",["0%","−1%","+1%","−10%"],1,"1.1 × 0.9 = 0.99, a 1% fall.");
+q("Quantitative Aptitude","Time & Work","Medium","A does a job in 10 days, B in 15. Together?",["5","6","7","8"],1,"1/10 + 1/15 = 1/6 per day.");
+q("Quantitative Aptitude","Time & Work","Easy","4 workers finish in 12 days. How long for 6 workers?",["6","8","9","18"],1,"Work = 48 worker-days; 48 / 6 = 8.");
+q("Logical Reasoning","Series","Easy","2, 4, 8, 16, ?",["24","32","30","20"],1,"Each term doubles.");
+q("Logical Reasoning","Series","Medium","1, 4, 9, 16, ?",["20","25","24","36"],1,"Perfect squares: 5² = 25.");
+q("Logical Reasoning","Syllogisms","Medium","All cats are animals. Some animals are pets. Which must be true?",["All cats are pets","Some cats are pets","No conclusion about cats and pets follows","No cat is a pet"],2,"The middle term is only partially distributed, so no link is guaranteed.");
+q("Logical Reasoning","Syllogisms","Easy","All A are B; all B are C. Then:",["All A are C","All C are A","No A is C","Some C are not B"],0,"Transitivity of 'all'.");
+q("Verbal Ability","Grammar","Easy","Choose the correct sentence.",["She don't like tea","She doesn't like tea","She not like tea","She doesn't likes tea"],1,"Third person singular uses 'doesn't' plus base verb.");
+q("Verbal Ability","Grammar","Medium","'Neither of the answers ___ correct.'",["are","is","were","be"],1,"'Neither' takes a singular verb.");
+q("Verbal Ability","Vocabulary","Easy","Synonym of 'brief':",["Short","Heavy","Loud","Bright"],0,"Brief means short in duration.");
+q("Verbal Ability","Vocabulary","Hard","Antonym of 'ephemeral':",["Fleeting","Lasting","Fragile","Rapid"],1,"Ephemeral means short-lived.");
+q("Programming Fundamentals","Loops","Easy","How many times does for(i=0;i<5;i++) run?",["4","5","6","Infinite"],1,"i takes 0..4.");
+q("Programming Fundamentals","Loops","Medium","Output of: s=0; for i in range(1,4): s+=i",["3","6","10","4"],1,"1+2+3 = 6.");
+q("Programming Fundamentals","Recursion","Medium","factorial(n)=n*factorial(n-1). The base case is needed to:",["Speed up","Stop recursion","Save memory","Declare types"],1,"Without it the calls never terminate.");
+q("Programming Fundamentals","Recursion","Hard","Fibonacci via naive recursion has time complexity:",["O(n)","O(n log n)","O(2^n)","O(1)"],2,"Each call spawns two overlapping subcalls.");
+q("Data Structures and Algorithms","Stacks & Queues","Easy","A stack follows:",["FIFO","LIFO","Random","Priority order"],1,"Last in, first out.");
+q("Data Structures and Algorithms","Stacks & Queues","Medium","Which structure suits breadth-first search?",["Stack","Queue","Heap","Tree"],1,"BFS visits nodes level by level using a FIFO queue.");
+q("Data Structures and Algorithms","Complexity","Medium","Binary search time complexity:",["O(n)","O(log n)","O(n²)","O(1)"],1,"The range halves every step.");
+q("Data Structures and Algorithms","Complexity","Hard","Worst case of quicksort:",["O(n log n)","O(n²)","O(n)","O(log n)"],1,"Consistently bad pivots give quadratic time.");
+q("Database Management Systems","Normalization","Medium","1NF requires:",["No partial dependency","Atomic column values","No transitive dependency","Every table has a foreign key"],1,"1NF means each cell holds a single atomic value.");
+q("Database Management Systems","Normalization","Hard","3NF removes:",["Partial dependencies","Transitive dependencies","Multi-valued attributes","Null values"],1,"Non-key attributes must not depend on other non-key attributes.");
+q("Database Management Systems","SQL","Easy","Which clause filters grouped rows?",["WHERE","HAVING","ORDER BY","LIMIT"],1,"HAVING filters after GROUP BY.");
+q("Database Management Systems","SQL","Medium","Which JOIN keeps all rows from the left table?",["INNER","LEFT","CROSS","SELF"],1,"LEFT JOIN preserves unmatched left rows.");
+q("Operating Systems","Scheduling","Medium","Which algorithm can cause starvation of long jobs?",["Round Robin","Shortest Job First","FCFS","None"],1,"Short jobs keep arriving and jump ahead.");
+q("Operating Systems","Scheduling","Easy","Round Robin uses a:",["Priority","Time quantum","Deadline","Stack"],1,"Each process runs for a fixed quantum.");
+q("Operating Systems","Memory","Medium","Thrashing happens when:",["CPU is idle","Too much paging activity","Disk is full","Cache is empty"],1,"Processes spend more time paging than executing.");
+q("Operating Systems","Memory","Hard","Belady's anomaly occurs in:",["LRU","FIFO page replacement","Optimal","Clock"],1,"FIFO can fault more with more frames.");
+q("Computer Networks","Protocols","Easy","HTTP runs over which transport protocol by default?",["UDP","TCP","ICMP","ARP"],1,"HTTP/1.1 and 2 use TCP.");
+q("Computer Networks","Protocols","Medium","TCP connection setup is:",["2-way","3-way handshake","4-way","None"],1,"SYN, SYN-ACK, ACK.");
+q("Computer Networks","Addressing","Medium","How many host addresses are usable in a /24 IPv4 network?",["256","254","255","24"],1,"256 minus network and broadcast.");
+q("Computer Networks","Addressing","Hard","Which protocol maps IP to MAC?",["DNS","ARP","DHCP","NAT"],1,"ARP resolves IP to link-layer addresses.");
+const CODE=[{n:"Two Sum (sorted)",d:"Easy",t:"Arrays",s:"Given a sorted array and a target, return the 1-based indices of two numbers that add to the target.",i:"Line 1: n and target. Line 2: n sorted integers.",o:"Two indices separated by a space.",ex:["4 9 / 2 7 11 15 → 1 2","3 6 / 1 2 4 → 2 3"]},{n:"Balanced Brackets",d:"Medium",t:"Stacks",s:"Check whether a string of ()[]{} brackets is balanced.",i:"A single string.",o:"YES or NO.",ex:["{[()]} → YES","([)] → NO"]}];
+const K={at:'nx_attempts',act:'nx_active',pol:'nx_policy'};
+const ld=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let U={role:'student',name:'Student'},G=ld('nx_g',[]),N=ld('nx_n',[]),A=ld(K.at,[]),P=ld(K.pol,{on:true,warn:2,max:5,act:'warn'}),T=ld(K.act,null),view='dash',PF={c:'',t:'',d:''},WS={min:4,thr:60},away=false,tick=null,idx=0;
+const $=s=>document.querySelector(s),main=$('#main');
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const NAV=[["Placement",null],["Dashboard",'dash'],["Practice",'practice'],["Mock test",'mock'],["Weak topics & plan",'weak'],["Coding practice",'code'],["Administration",null],["Exam policy",'policy'],["Campus modules",'campus']];
+const Cm=[["Campus",null],["Notifications",'notifs'],["Modules",'campus']],Gr=["Grievances",'grievances'];const NAVR={student:[["Placement",null],["Home",'dash'],["Practice",'practice'],["Mock test",'mock'],["Weak topics & plan",'weak'],["Coding practice",'code'],["Campus",null],["Notifications",'notifs']],admin:[["Admin",null],["Exam policy",'policy'],["Notifications",'notifs'],["Modules",'campus']],faculty:[["Campus",null],["Notifications",'notifs'],["Modules",'campus']],hod:[["Campus",null],["Notifications",'notifs'],["Modules",'campus']],parent:Cm,alumni:Cm};
+function nav(){$('#nav').innerHTML=(NAVR[U.role]||NAV).map(([l,v])=>v?`<button ${view===v?'aria-current="page"':''} onclick="go('${v}')">${l}</button>`:`<div class="grp">${l}</div>`).join('')}
+function go(v){if(T&&!T.done&&v!=='mock'&&!confirm('A test is running and its timer keeps going. Leave the test page?'))return;view=v;draw()}
+function toast(m){const e=document.createElement('div');e.className='toast';e.setAttribute('role','status');e.textContent=m;document.body.append(e);setTimeout(()=>e.remove(),2800)}
+function draw(){document.querySelector('.app').classList.toggle('out',!U);clearInterval(tick);nav();if(T&&!T.done&&view==='mock'){return runUI()}
+main.innerHTML=({dash,practice,mock,weak,code,policy,campus,grievances,notifs}[view])();main.focus({preventScroll:true});cu()}
+const note='<div class="note">Prototype: scoring and storage run in this browser.</div>';
+/* aggregation */
+function agg(items,k){const m={};items.forEach(i=>{const x=m[i[k]]||(m[i[k]]={n:0,ok:0,w:0});if(i.sel!=null){x.n++;i.ok?x.ok++:x.w++}});return m}
+function allItems(){return A.flatMap(a=>a.items.map(i=>({...i,at:a.at})))}
+function bars(m,order){const ks=order||Object.keys(m);return `<div class="wrap"><table><tr><th>Name</th><th>Attempted</th><th>Accuracy</th><th></th></tr>${ks.filter(k=>m[k]&&m[k].n).map(k=>{const p=pct(m[k].ok,m[k].n);return `<tr><td>${k}</td><td>${m[k].n}</td><td>${p}%</td><td><div class="bar" role="img" aria-label="${p}%"><i style="width:${p}%"></i></div></td></tr>`}).join('')}</table></div>`}
+function dash(){const M=A.filter(a=>a.mode==='mock');const items=allItems();
+let h=`<h1>Placement dashboard</h1><p class="sub">Built from your saved attempts only.</p>${note}`;
+if(!A.length)return h+`<div class="panel empty"><h3>No attempts yet</h3><p>Take your first mock test to see accuracy, trends and weak topics here.</p><button class="btn" onclick="go('mock')">Start a mock test</button></div>`;
+const att=items.filter(i=>i.sel!=null),ok=att.filter(i=>i.ok).length,tm=A.reduce((s,a)=>s+a.secs,0);
+h+=`<div class="kpis"><div class="kpi"><b>${M.length}</b><span>Mock tests completed</span></div><div class="kpi"><b>${att.length}</b><span>Questions attempted</span></div><div class="kpi"><b>${pct(ok,att.length)}%</b><span>Overall accuracy</span></div><div class="kpi"><b>${M.length?Math.round(M.reduce((s,a)=>s+a.tp,0)/M.length):'–'}${M.length?'%':''}</b><span>Average mock score</span></div><div class="kpi"><b>${items.length?Math.round(tm/items.length):0}s</b><span>Avg time / question</span></div></div>`;
+h+=heat();h+=`<div class="panel"><h2>Score by mock test</h2>${M.length?chart(M):'<p class="mut">No mock tests yet.</p>'}${M.length>1?`<p class="mut">Latest vs previous: ${M[M.length-1].tp-M[M.length-2].tp>=0?'+':''}${M[M.length-1].tp-M[M.length-2].tp} percentage points.</p>`:''}</div>`;
+const bc=agg(items,'c'),ranked=Object.keys(bc).filter(k=>bc[k].n).sort((a,b)=>bc[b].ok/bc[b].n-bc[a].ok/bc[a].n);
+h+=`<div class="panel"><h2>Category accuracy</h2>${tiles(bc,ranked)}<p class="mut">Strongest: ${ranked[0]}. Lowest: ${ranked[ranked.length-1]}.</p></div>`;
+h+=`<div class="panel"><h2>Topic accuracy</h2>${tiles(agg(items,'t'))}</div><div class="panel"><h2>By difficulty</h2>${bars(agg(items,'d'),['Easy','Medium','Hard'])}</div>`;
+h+=`<div class="panel"><h2>Recent attempts</h2><div class="wrap"><table><tr><th>Date</th><th>Type</th><th>Score</th><th>Correct</th><th>Time</th><th>Focus events</th></tr>${[...A].reverse().slice(0,8).map(a=>`<tr><td>${new Date(a.at).toLocaleString()}</td><td>${a.mode}</td><td>${a.tp}%</td><td>${a.ok}/${a.total}</td><td>${Math.floor(a.secs/60)}m ${a.secs%60}s</td><td>${a.mode==='mock'?a.ev:'–'}</td></tr>`).join('')}</table></div></div>`;return h}
+function chart(M){const W=600,H=160,p=28,pts=M.map((a,i)=>[p+i*(W-2*p)/(M.length-1),H-p-(a.tp/100)*(H-2*p)]);
+return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-height:200px" role="img" aria-label="Mock score by attempt"><line x1="${p}" y1="${H-p}" x2="${W-p}" y2="${H-p}" stroke="#333"/><polyline fill="none" stroke="#D4AF37" stroke-width="2" points="${pts.map(x=>x.join(',')).join(' ')}"/>${pts.map((x,i)=>`<circle cx="${x[0]}" cy="${x[1]}" r="4" fill="#D4AF37"/><text x="${x[0]}" y="${x[1]-9}" fill="#B8B8B8" font-size="11" text-anchor="middle">${M[i].tp}%</text>`).join('')}</svg>`}
+/* weak topics */
+function topicStats(){const items=allItems().filter(i=>i.sel!=null),m={};items.forEach(i=>{const k=i.c+'|'+i.t,x=m[k]||(m[k]={c:i.c,t:i.t,n:0,ok:0,rec:[],d:{}});x.n++;if(i.ok)x.ok++;x.rec.push(i.ok);(x.d[i.d]=x.d[i.d]||[0,0])[1]++;if(i.ok)x.d[i.d][0]++});return Object.values(m)}
+function recDiff(a){return a<40?'Easy':a<70?'Medium':'Hard'}
+function weak(){const S=topicStats();let h=`<h1>Weak topics &amp; practice plan</h1><p class="sub">Transparent rules applied to your saved question-level results. This is rule-based analysis, not a trained AI model.</p>${note}
+<div class="panel row"><div><label for="mn">Minimum questions per topic</label><input id="mn" type="number" min="2" max="30" value="${WS.min}" onchange="WS.min=+this.value||4;draw()"></div><div><label for="th">Weak below accuracy %</label><input id="th" type="number" min="10" max="95" value="${WS.thr}" onchange="WS.thr=+this.value||60;draw()"></div><p class="mut" style="margin:0;flex:1">A topic is flagged only when it has at least the minimum number of attempted questions.</p></div>`;
+if(!S.length)return h+`<div class="panel empty"><h3>Not enough data yet</h3><p>Attempt questions in practice or a mock test first. Recommendations need more than a single question.</p></div>`;
+const weakT=S.filter(s=>s.n>=WS.min&&pct(s.ok,s.n)<WS.thr).sort((a,b)=>a.ok/a.n-b.ok/b.n),few=S.filter(s=>s.n<WS.min);
+h+=`<div class="panel"><h2>Needs attention</h2>`;
+if(!weakT.length)h+=`<p class="mut">No topic with enough evidence is below ${WS.thr}% accuracy.</p>`;
+h+=weakT.map(s=>{const a=pct(s.ok,s.n),r=s.rec.slice(-3),trend=r.length>=3?(r.filter(Boolean).length>=2?'Your last 3 answers were mostly correct.':'Your last 3 answers were mostly incorrect.'):'';const dg=recDiff(a);
+return `<div style="border-top:1px solid var(--bd);padding:12px 0"><h3>${s.t} <span class="chip">${s.c}</span></h3><p style="margin:4px 0">Evidence: ${s.ok} correct, ${s.n-s.ok} incorrect out of ${s.n} questions (${a}% accuracy). ${trend}</p><p class="mut" style="margin:4px 0">Next: complete a ${Math.min(8,Math.max(5,s.n))}-question ${dg}-level set on ${s.t}, then review each explanation.</p><button class="btn" onclick="PF={c:'${s.c}',t:'${s.t}',d:'${dg}'};go('practice')">Practice this topic</button></div>`}).join('')+`</div>`;
+h+=`<div class="panel"><h2>Practice plan</h2>${weakT.length?`<div class="wrap"><table><tr><th>Priority</th><th>Topic</th><th>Questions</th><th>Difficulty</th><th>Progress</th><th>Status</th></tr>${weakT.map((s,i)=>{const a=pct(s.ok,s.n),since=allItems().filter(x=>x.t===s.t&&x.sel!=null).length,goal=s.n+6;const done=a>=WS.thr;return `<tr><td>${i+1}</td><td>${s.t}</td><td>6</td><td>${recDiff(a)}</td><td>${Math.min(since,goal)}/${goal} attempted</td><td class="${done?'ok':'warn'}">${done?'Above threshold':'In progress'}</td></tr>`}).join('')}</table></div>`:'<p class="mut">The plan appears when a topic is flagged as weak.</p>'}<p class="mut">Updates automatically after each new attempt. It does not predict placement outcomes.</p></div>`;
+if(few.length)h+=`<div class="panel"><h2>Not enough evidence yet</h2><p class="mut">${few.map(s=>`${s.t} (${s.n} attempted)`).join(', ')}. Attempt at least ${WS.min} questions per topic for a reliable result.</p></div>`;return h}
+/* practice */
+const sel=(id,opts,v,fn)=>`<select id="${id}" onchange="${fn}">${opts.map(o=>`<option value="${o[0]}" ${o[0]===v?'selected':''}>${o[1]}</option>`).join('')}</select>`;
+function pool(){return Q.filter(x=>(!PF.c||x.c===PF.c)&&(!PF.t||x.t===PF.t)&&(!PF.d||x.d===PF.d))}
+function setPF(){PF.c=$('#fc').value;if(!(CATS[PF.c]||[]).includes($('#ft').value))$('#ft').value='';PF.t=$('#ft').value;PF.d=$('#fd').value;draw()}
+function practice(){const n=pool().length;
+return `<h1>Practice</h1><p class="sub">Pick what to work on. Answers and explanations appear after you submit.</p>${note}<div class="panel"><div class="row"><div><label for="fc">Category</label>${sel('fc',[['','All categories'],...Object.keys(CATS).map(c=>[c,c])],PF.c,'setPF()')}</div><div><label for="ft">Topic</label>${sel('ft',[['','All topics'],...(PF.c?CATS[PF.c]:Object.values(CATS).flat()).map(t=>[t,t])],PF.t,'setPF()')}</div><div><label for="fd">Difficulty</label>${sel('fd',[['','Any'],['Easy','Easy'],['Medium','Medium'],['Hard','Hard']],PF.d,'setPF()')}</div><div><label for="pt">Timer (minutes, optional)</label><input id="pt" type="number" min="1" max="120" placeholder="None"></div></div>
+<p class="mut">${n} question${n===1?'':'s'} match these filters.</p>${n?`<button class="btn" onclick="startPractice()">Start practice</button>`:'<div class="empty"><h3>No matching questions</h3><p>Try a different difficulty or clear a filter.</p></div>'}</div>`}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function begin(mode,qs,mins){const now=Date.now();T={id:'a'+now,mode,ids:qs.map(x=>x.id),ans:{},marks:[],start:now,end:mins?now+mins*60000:null,events:[],done:false};idx=0;away=false;sv(K.act,T);view='mock';draw()}
+function startPractice(){const m=+$('#pt').value;begin('practice',shuffle(pool()),m>0?m:0)}
+/* mock setup */
+function mock(){const r=T&&!T.done?`<div class="panel"><h2>Attempt in progress</h2><p>Started ${new Date(T.start).toLocaleTimeString()}. The timer kept running while you were away.</p><button class="btn" onclick="draw()">Resume attempt</button></div>`:'';
+return `<h1>Timed mock test</h1><p class="sub">Choose a length, read the notice, then start.</p>${note}${r}<div class="panel"><div class="row"><div><label for="mq">Questions (max ${Q.length})</label><input id="mq" type="number" min="1" max="${Q.length}" value="12"></div><div><label for="mm">Duration (minutes)</label><input id="mm" type="number" min="1" max="180" value="10"></div><div><label for="mc">Category</label>${sel('mc',[['','All categories'],...Object.keys(CATS).map(c=>[c,c])],'','')}</div></div></div>
+<div class="panel"><h2>Before you begin</h2><ul><li>The timer follows the clock and does not pause if you change tabs or lose focus.</li><li>You can mark questions for review and change answers until you submit or time runs out.</li><li>Time expiry submits the attempt automatically.</li></ul><h3>Focus monitoring notice</h3><ul><li>Recorded: when this page becomes hidden or the window loses focus, with a timestamp and event type. Nothing else.</li><li>Not collected: other tabs, browser history, screenshots, camera, microphone or other apps.</li><li>Current policy: ${P.on?`warning after ${P.warn} event(s); limit ${P.max}; action at limit: ${{warn:'warning only',confirm:'acknowledgement required',auto:'automatic submission'}[P.act]}`:'monitoring is switched off'}.</li><li>Limits: browsers cannot stop tab switching or outside help, and a focus loss is not proof of cheating. Events can also be missed or caused by normal system pop-ups.</li></ul><button class="btn" onclick="startMock()">I understand, start test</button></div>`}
+function startMock(){const n=Math.max(1,Math.min(Q.length,+$('#mq').value||10)),m=Math.max(1,+$('#mm').value||10),c=$('#mc').value;const p=Q.filter(x=>!c||x.c===c);if(!p.length)return toast('No questions in that category');begin('mock',shuffle(p).slice(0,Math.min(n,p.length)),m)}
+/* test runner */
+const qs=()=>T.ids.map(i=>Q.find(x=>x.id===i));
+function runUI(){if(T.end&&Date.now()>=T.end)return submit('time');
+const L=qs(),x=L[idx];const a=T.ans[x.id];
+main.innerHTML=`<div class="tb"><div><b>${T.mode==='mock'?'Mock test':'Practice'}</b> <span class="mut">Question ${idx+1} of ${L.length}</span></div><div>${T.mode==='mock'&&P.on?`<span class="chip" id="ev">Focus events: ${T.events.length}</span>`:''}${T.end?`<span class="timer" id="tm" role="timer"></span>`:''}</div></div>
+<div class="test"><div class="panel"><p><span class="chip">${x.c}</span><span class="chip">${x.t}</span><span class="chip">${x.d}</span></p><h2>${x.x}</h2><div role="radiogroup" aria-label="Options">${x.o.map((o,i)=>`<div class="opt ${a===i?'sel':''}" role="radio" aria-checked="${a===i}" tabindex="0" onclick="pick(${i})" onkeydown="if(event.key==' '||event.key=='Enter'){event.preventDefault();pick(${i})}"><span>${'ABCD'[i]}.</span><span>${o}</span></div>`).join('')}</div>
+<div class="row" style="margin-top:12px"><button class="btn alt" ${idx?'':'disabled'} onclick="idx--;runUI()">Previous</button><button class="btn alt" ${idx<L.length-1?'':'disabled'} onclick="idx++;runUI()">Next</button><button class="btn alt" onclick="mark()">${T.marks.includes(x.id)?'Unmark review':'Mark for review'}</button><button class="btn alt" ${a==null?'disabled':''} onclick="delete T.ans[${x.id}];sv(K.act,T);runUI()">Clear answer</button><span style="flex:1"></span><button class="btn" onclick="ask()">Submit</button></div></div>
+<div class="panel"><h3>Questions</h3><p class="mut" style="font-size:13px">${Object.keys(T.ans).length} answered, ${L.length-Object.keys(T.ans).length} unanswered, ${T.marks.length} marked</p><div class="pal">${L.map((y,i)=>`<button class="${T.ans[y.id]!=null?'a':''} ${T.marks.includes(y.id)?'m':''} ${i===idx?'c':''}" aria-label="Question ${i+1}${T.ans[y.id]!=null?', answered':''}${T.marks.includes(y.id)?', marked':''}" onclick="idx=${i};runUI()">${i+1}</button>`).join('')}</div></div></div>`;
+clearInterval(tick);if(T.end){const f=()=>{const s=Math.max(0,Math.round((T.end-Date.now())/1000)),e=$('#tm');if(e){e.textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;e.className='timer'+(s<60?' low':'')}if(s<=0){clearInterval(tick);submit('time')}};f();tick=setInterval(f,500)}}
+function pick(i){const x=qs()[idx];if(T.end&&Date.now()>=T.end)return submit('time');T.ans[x.id]=i;sv(K.act,T);runUI()}
+function mark(){const id=qs()[idx].id;T.marks=T.marks.includes(id)?T.marks.filter(m=>m!==id):[...T.marks,id];sv(K.act,T);runUI()}
+function ask(){const n=T.ids.length-Object.keys(T.ans).length;$('#dlg').innerHTML=`<h2>Submit attempt?</h2><p>${n?`${n} question(s) are unanswered. `:''}${T.marks.length?`${T.marks.length} marked for review. `:''}You cannot change answers after submitting.</p><div class="row"><button class="btn" onclick="$('#dlg').close();submit('manual')">Submit</button><button class="btn alt" onclick="$('#dlg').close()">Keep working</button></div>`;$('#dlg').showModal()}
+let busy=false;
+function submit(reason){if(!T||T.done||busy)return;busy=true;clearInterval(tick);const L=qs(),end=Math.min(Date.now(),T.end||Infinity);
+const items=L.map(x=>({id:x.id,c:x.c,t:x.t,d:x.d,sel:T.ans[x.id]??null,ok:T.ans[x.id]===x.a}));
+const ok=items.filter(i=>i.ok).length,att=items.filter(i=>i.sel!=null).length;
+const r={id:T.id,mode:T.mode,at:Date.now(),secs:Math.round((end-T.start)/1000),total:L.length,att,ok,wrong:att-ok,skip:L.length-att,tp:pct(ok,L.length),ac:pct(ok,att),ev:T.events.length,events:T.events,reason,items};
+A.push(r);sv(K.at,A);N.push({to:'student',m:`${r.mode==='mock'?'Mock test':'Practice'} result: ${r.ok}/${r.total} (${r.tp}%)`,at:r.at,r:0});sv('nx_n',N);T=null;sv(K.act,null);busy=false;away=false;view='mock';result(r)}
+function result(r){nav();const m={};r.items.forEach(i=>{const x=m[i.t]||(m[i.t]={n:0,ok:0});x.n++;if(i.ok)x.ok++});
+const why={manual:'Submitted manually.',time:'Submitted automatically when time expired.',policy:'Submitted automatically because the focus-event limit set by the exam policy was reached.'}[r.reason];
+const wrongIds=r.items.filter(i=>!i.ok).map(i=>i.id);
+main.innerHTML=`<h1>Results</h1><p class="sub">${why}</p><div class="kpis"><div class="kpi"><b>${r.ok}/${r.total}</b><span>Correct</span></div><div class="kpi"><b>${r.tp}%</b><span>Test percentage</span></div><div class="kpi"><b>${r.att?r.ac+'%':'n/a'}</b><span>Accuracy on attempted</span></div><div class="kpi"><b>${r.wrong}</b><span>Incorrect</span></div><div class="kpi"><b>${r.skip}</b><span>Unanswered</span></div><div class="kpi"><b>${Math.floor(r.secs/60)}m ${r.secs%60}s</b><span>Time taken</span></div></div>
+${r.mode==='mock'&&P.on?`<p class="mut">Focus events recorded: ${r.ev}. These are signals, not proof of misconduct.</p>`:''}
+<div class="panel"><h2>Topic breakdown</h2>${bars(Object.fromEntries(Object.entries(m).map(([k,v])=>[k,v])))}</div>
+<div class="row" style="margin-bottom:16px">${wrongIds.length?`<button class="btn" onclick="retry([${wrongIds}])">Retry incorrect questions</button>`:''}<button class="btn alt" onclick="go('dash')">View dashboard</button><button class="btn alt" onclick="go('weak')">Weak topics</button></div>
+<div class="panel"><h2>Answer review</h2>${r.items.map((i,n)=>{const x=Q.find(y=>y.id===i.id);return `<div style="border-top:1px solid var(--bd);padding:10px 0"><b>${n+1}. ${x.x}</b><div class="${i.sel==null?'warn':i.ok?'ok':'err'}">Your answer: ${i.sel==null?'not answered':x.o[i.sel]}</div>${i.ok?'':`<div class="ok">Correct answer: ${x.o[x.a]}</div>`}<div class="mut">${x.e}</div></div>`}).join('')}</div>`;main.focus()}
+function retry(ids){begin('practice',Q.filter(x=>ids.includes(x.id)),0)}
+/* focus monitoring */
+function lost(type){if(!T||T.done||T.mode!=='mock'||!P.on||away)return;away=true;T.events.push({type,seq:T.events.length+1,t:Date.now()});sv(K.act,T);const e=$('#ev');if(e)e.textContent='Focus events: '+T.events.length;if(P.act==='auto'&&T.events.length>=P.max)submit('policy')}
+function back(){if(!T||T.done||T.mode!=='mock'||!P.on||!away)return;away=false;if(T.end&&Date.now()>=T.end)return submit('time');const n=T.events.length,lim=n>=P.max,w=n>=P.warn;
+const rule={warn:'Policy: warning only. Your answers and timer are unaffected.',confirm:'Policy: you must acknowledge this notice to continue.',auto:`Policy: the attempt is submitted automatically at ${P.max} events.`}[P.act];
+$('#dlg').innerHTML=`<h2 class="${w?'warn':''}">Focus loss recorded</h2><p>The test page was hidden or lost focus. ${n} event(s) so far${lim?' (limit reached)':''}. The timer kept running.</p><p class="mut">${rule} Focus changes are signals only and can have ordinary causes.</p><button class="btn" onclick="$('#dlg').close()">Continue test</button>`;if(!$('#dlg').open)$('#dlg').showModal()}
+document.addEventListener('visibilitychange',()=>document.hidden?lost('visibilitychange'):back());
+window.addEventListener('blur',()=>lost('blur'));window.addEventListener('focus',()=>{if(!document.hidden)back()});
+$('#dlg').addEventListener('cancel',e=>{if(T&&P.act==='confirm'&&$('#dlg h2').textContent==='Focus loss recorded')e.preventDefault()});
+/* other views */
+function code(){return `<h1>Coding practice</h1><p class="sub">Read problems and check your logic against the samples.</p><div class="note"><b>Sample-based only.</b> There is no code runner here. Submitted code is never executed, so this is not an online judge.</div>${CODE.map(c=>`<div class="panel"><h2>${c.n}</h2><p><span class="chip">${c.d}</span><span class="chip">${c.t}</span></p><p>${c.s}</p><p><b>Input:</b> ${c.i}<br><b>Output:</b> ${c.o}</p><b>Examples</b><ul>${c.ex.map(e=>`<li>${e}</li>`).join('')}</ul></div>`).join('')}`}
+function policy(){return `<h1>Exam policy</h1><p class="sub">Administrator setting. It applies to the next mock test started.</p>${note}<div class="panel"><div class="row"><div><label for="pe">Focus monitoring</label>${sel('pe',[['1','Enabled'],['0','Disabled']],P.on?'1':'0','')}</div><div><label for="pw">Warning threshold (events)</label><input id="pw" type="number" min="1" value="${P.warn}"></div><div><label for="px">Maximum events</label><input id="px" type="number" min="1" value="${P.max}"></div><div><label for="pa">Action at maximum</label>${sel('pa',[['warn','Warning only (default)'],['confirm','Require acknowledgement'],['auto','Submit automatically']],P.act,'')}</div></div><p class="mut">Automatic submission keeps existing answers. Focus loss never assigns zero marks on its own.</p><button class="btn" onclick="savePol()">Save policy</button></div>`}
+function savePol(){const w=+$('#pw').value,x=+$('#px').value;if(!(w>=1&&x>=w))return toast('Maximum must be at least the warning threshold');P={on:$('#pe').value==='1',warn:w,max:x,act:$('#pa').value};sv(K.pol,P);toast('Policy saved')}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function cu(){document.querySelectorAll('.kpi b').forEach(e=>{const m=e.textContent.match(/^(\d+)(.*)$/);if(!m)return;const n=+m[1],s=m[2],t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/700);e.textContent=Math.round(n*k)+s;if(k<1)requestAnimationFrame(f)})(t0)})}
+function login(){main.innerHTML=`<div class="login"><div><div class="brand" style="padding:0">NexCampus</div><p class="mut">One Campus. Every Connection. Smarter Decisions.</p><label for="lr">Role</label>${sel('lr',[['student','Student'],['faculty','Faculty'],['parent','Parent'],['alumni','Alumni'],['hod','Head of Department'],['admin','Administrator']],'student','')}<label for="ln">Name</label><input id="ln" type="text" maxlength="40" placeholder="Your name"><button class="btn" style="width:100%;margin-top:6px" onclick="signin()">Sign in</button><p class="mut" style="font-size:12px">Demo sign-in. No password or server check.</p></div></div>`}
+function signin(){U={role:$('#lr').value,name:$('#ln').value.trim()||'Demo user'};sv('nx_user',U);view={student:'dash',admin:'policy'}[U.role]||'notifs';draw()}
+function logout(){if(T&&!T.done&&!confirm('A test is running. Log out anyway?'))return;U=null;sv('nx_user',null);draw()}
+const lv=p=>p>=70?'hi':p>=40?'mid':'lo';
+function tile(p,l,t,i){return `<div class="tile ${lv(p)}" style="--i:${i}" title="${esc(t)}"><b>${p}%</b><span>${esc(l)}</span></div>`}
+function tiles(m,o){const k=(o||Object.keys(m)).filter(x=>m[x]&&m[x].n);return `<div class="tiles">${k.map((x,i)=>tile(pct(m[x].ok,m[x].n),x,x+': '+m[x].ok+'/'+m[x].n,i)).join('')}</div>`}
+function chart(M){return `<div class="tiles">${M.map((a,i)=>tile(a.tp,'Test '+(i+1),new Date(a.at).toLocaleString(),i)).join('')}</div>`}
+function heat(){const c={};allItems().forEach(i=>{if(i.sel!=null){const k=new Date(i.at).toDateString();c[k]=(c[k]||0)+1}});const now=new Date(),n=25*7+now.getDay()+1;let cells='',tot=0;for(let i=0;i<n;i++){const d=new Date(now);d.setDate(now.getDate()-(n-1-i));const v=c[d.toDateString()]||0;tot+=v;const l=v?v<3?1:v<6?2:v<10?3:4:0;cells+=`<i class="cell l${l}" style="--i:${i}" title="${v} question${v==1?'':'s'}, ${d.toDateString()}"></i>`}return `<div class="panel"><h2>${tot} questions in the last 6 months</h2><div class="heat">${cells}</div><div class="leg">Less <i class="cell l0"></i><i class="cell l1"></i><i class="cell l2"></i><i class="cell l3"></i><i class="cell l4"></i> More</div></div>`}
+const NX={Submitted:['Under Review'],'Under Review':['In Progress','Rejected'],'In Progress':['Resolved','Rejected']};
+function grievances(){const st=['faculty','hod','admin'].includes(U.role);let h='<h1>Grievances</h1>';
+if(!st)h+=`<div class="panel"><div class="row"><div><label for="gc">Category</label>${sel('gc',['Academic','Facilities','Hostel','Transport','Other'].map(x=>[x,x]),'Academic','')}</div><div style="flex:1;min-width:200px"><label for="gd">Description</label><textarea id="gd" rows="2" maxlength="500"></textarea></div><button class="btn" onclick="addG()">Submit</button></div></div>`;
+return h+(G.length?`<div class="panel">`+[...G].reverse().map(g=>`<div style="border-top:1px solid var(--bd);padding:10px 0"><b>${g.cat}</b> <span class="chip">${g.s}</span><span class="mut">${new Date(g.at).toLocaleString()}</span><p style="margin:4px 0">${esc(g.text)}</p><div class="mut">${g.h.map(x=>x.s).join(' → ')}</div>${st&&NX[g.s]?`<div class="row" style="margin-top:8px">${sel('s'+g.id,NX[g.s].map(x=>[x,x]),NX[g.s][0],'')}<button class="btn alt" onclick="setG(${g.id})">Update status</button></div>`:''}</div>`).join('')+`</div>`:`<div class="panel empty"><h3>No grievances</h3></div>`)}
+function addG(){const t=$('#gd').value.trim();if(t.length<10)return toast('Enter at least 10 characters');G.push({id:Date.now(),cat:$('#gc').value,text:t,s:'Submitted',at:Date.now(),h:[{s:'Submitted'}]});sv('nx_g',G);toast('Grievance submitted');draw()}
+function setG(id){const g=G.find(x=>x.id===id);g.s=$('#s'+id).value;g.h.push({s:g.s});N.push({to:'student',m:`Grievance (${g.cat}) is now ${g.s}`,at:Date.now(),r:0});sv('nx_g',G);sv('nx_n',N);toast('Status updated');draw()}
+function notifs(){const L=N.filter(n=>n.to===U.role).reverse();const h='<h1>Notifications</h1>'+(L.length?`<div class="panel">`+L.map(n=>`<div style="border-top:1px solid var(--bd);padding:8px 0;${n.r?'color:var(--tx2)':'font-weight:600'}">${esc(n.m)}<div class="mut" style="font-weight:400;font-size:12px">${new Date(n.at).toLocaleString()}</div></div>`).join('')+'</div>':'<div class="panel empty"><h3>No notifications</h3></div>');N.forEach(n=>{if(n.to===U.role)n.r=1});sv('nx_n',N);return h}
+function campus(){const R=[['Placement preparation','Built in this prototype'],['Authentication and roles','Demo sign-in only'],['Student, faculty, parent, alumni, HOD dashboards','Not built'],['Campus Impact Engine','Not built (needs backend data)'],['Faculty Load Balancer','Not built'],['Notifications','Built in this prototype'],['Mentorship, bookings, question bank admin','Not built']];
+return `<h1>Campus modules</h1><p class="sub">Status of each module in this UI pass.</p><div class="panel wrap"><table><tr><th>Module</th><th>Status</th></tr>${R.map(r=>`<tr><td>${r[0]}</td><td class="${r[1].startsWith('Built')?'ok':'mut'}">${r[1]}</td></tr>`).join('')}</table></div>`}
+draw();
+</script></body></html>

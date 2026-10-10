@@ -1,0 +1,14 @@
+CREATE TABLE users(id INTEGER PRIMARY KEY,email TEXT NOT NULL UNIQUE COLLATE NOCASE,name TEXT NOT NULL,role TEXT NOT NULL CHECK(role IN('student','faculty','parent','alumni','hod','admin')),pw TEXT NOT NULL,created_at INTEGER NOT NULL);
+CREATE TABLE user_sessions(token_hash TEXT PRIMARY KEY,user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,expires_at INTEGER NOT NULL);
+CREATE TABLE questions(id INTEGER PRIMARY KEY,category TEXT NOT NULL,topic TEXT NOT NULL,difficulty TEXT NOT NULL CHECK(difficulty IN('Easy','Medium','Hard')),text TEXT NOT NULL,options TEXT NOT NULL,correct_index INTEGER NOT NULL,explanation TEXT NOT NULL DEFAULT '',active INTEGER NOT NULL DEFAULT 1);
+CREATE INDEX q_filter ON questions(category,topic,difficulty);
+CREATE TABLE attempts(id INTEGER PRIMARY KEY,user_id INTEGER NOT NULL REFERENCES users(id),mode TEXT NOT NULL CHECK(mode IN('mock','practice')),started_at INTEGER NOT NULL,expires_at INTEGER,submitted_at INTEGER,status TEXT NOT NULL DEFAULT 'in_progress' CHECK(status IN('in_progress','submitted','auto_submitted')),submit_reason TEXT,neg_mark REAL NOT NULL DEFAULT 0,policy TEXT NOT NULL);
+CREATE UNIQUE INDEX one_active ON attempts(user_id,mode) WHERE status='in_progress';
+CREATE INDEX att_user ON attempts(user_id,status);
+CREATE TABLE attempt_answers(attempt_id INTEGER NOT NULL REFERENCES attempts(id) ON DELETE CASCADE,question_id INTEGER NOT NULL REFERENCES questions(id),pos INTEGER NOT NULL,selected INTEGER,marked INTEGER NOT NULL DEFAULT 0,is_correct INTEGER,updated_at INTEGER,PRIMARY KEY(attempt_id,question_id));
+CREATE TABLE results(attempt_id INTEGER PRIMARY KEY REFERENCES attempts(id) ON DELETE CASCADE,total INTEGER NOT NULL,attempted INTEGER NOT NULL,correct INTEGER NOT NULL,wrong INTEGER NOT NULL,skipped INTEGER NOT NULL,score REAL NOT NULL,test_pct REAL NOT NULL,accuracy_pct REAL NOT NULL,secs INTEGER NOT NULL,breakdown TEXT NOT NULL);
+CREATE TABLE monitoring_events(id INTEGER PRIMARY KEY,attempt_id INTEGER NOT NULL REFERENCES attempts(id) ON DELETE CASCADE,user_id INTEGER NOT NULL,type TEXT NOT NULL,seq INTEGER NOT NULL,at INTEGER NOT NULL,count_after INTEGER NOT NULL,action TEXT,UNIQUE(attempt_id,seq));
+CREATE TABLE settings(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE TABLE notifications(id INTEGER PRIMARY KEY,user_id INTEGER NOT NULL REFERENCES users(id),category TEXT NOT NULL,message TEXT NOT NULL,related_type TEXT,related_id INTEGER,created_at INTEGER NOT NULL,read INTEGER NOT NULL DEFAULT 0);
+CREATE INDEX notif_user ON notifications(user_id,created_at);
+CREATE TABLE audit_logs(id INTEGER PRIMARY KEY,actor_id INTEGER,action TEXT NOT NULL,ref TEXT,detail TEXT,at INTEGER NOT NULL);
